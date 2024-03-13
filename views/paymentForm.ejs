@@ -11,6 +11,9 @@
 <body>
 
 <form id="payment-form">
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required>
+
   <div id="card-element">
     <!-- A Stripe Element will be inserted here. -->
   </div>
@@ -57,7 +60,10 @@
   form.addEventListener('submit', function(event) {
     event.preventDefault();
 
-    stripe.createToken(card).then(function(result) {
+    // Get the email address
+    var email = document.getElementById('email').value;
+
+    stripe.createToken(card, {email: email}).then(function(result) {
       if (result.error) {
         // Inform the user if there was an error.
         var errorElement = document.getElementById('card-errors');
