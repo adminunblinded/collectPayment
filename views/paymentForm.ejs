@@ -11,7 +11,10 @@
 <body>
 
 <form id="payment-form">
-  <label for="email">Email:</label>
+  <label for="name-on-card">Name on Card</label>
+  <input type="text" id="name-on-card" name="name-on-card" required>
+  
+  <label for="email">Email</label>
   <input type="email" id="email" name="email" required>
 
   <div id="card-element">
@@ -60,10 +63,10 @@
   form.addEventListener('submit', function(event) {
     event.preventDefault();
 
-    // Get the email address
-    var email = document.getElementById('email').value;
-
-    stripe.createToken(card, {email: email}).then(function(result) {
+    stripe.createToken(card, {
+      name: document.getElementById('name-on-card').value,
+      email: document.getElementById('email').value
+    }).then(function(result) {
       if (result.error) {
         // Inform the user if there was an error.
         var errorElement = document.getElementById('card-errors');
@@ -81,3 +84,4 @@
 
 </body>
 </html>
+
