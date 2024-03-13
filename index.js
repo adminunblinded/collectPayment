@@ -1,12 +1,23 @@
-const http = require('http');
-const PORT = 3000;
+const express = require('express');
+const app = express();
+const path = require('path');
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World!');
+// Set your Stripe publishable key
+const stripePublishableKey = 'pk_test_dnxIicCufTTvDdOvJJQmsGIt';
+
+// Set view engine to EJS
+app.set('view engine', 'ejs');
+
+// Define route to render the payment form
+app.get('/', (req, res) => {
+  res.render('paymentForm', { stripePublishableKey });
 });
 
-server.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}/`);
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
