@@ -24,16 +24,16 @@ label {
 input[type="text"],
 input[type="email"],
 #card-element {
-  width: 100%;
+  width: calc(100% - 20px);
   padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
+  margin: 5px 0 15px 0;
+  border: 1px solid #d8dde6;
   border-radius: 5px;
   box-sizing: border-box;
 }
 
 #card-errors {
-  color: #ff0000;
+  color: #d50000;
   margin-bottom: 15px;
 }
 
@@ -50,4 +50,16 @@ input[type="email"],
 
 #submit-button:hover {
   background-color: #005cb9;
+}
+
+@media screen and (max-width: 480px) {
+  #payment-form {
+    padding: 15px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  #card-element {
+    width: 100%;
+  }
 }
