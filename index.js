@@ -13,7 +13,7 @@ const salesforceCredentials = {
   clientSecret: '1AAD66E5E5BF9A0F6FCAA681ED6720A797AC038BC6483379D55C192C1DC93190', // Replace with your Salesforce Consumer Secret
   username: 'admin@unblindedmastery.com', // Your Salesforce username
   password: 'Unblinded2023$', // Concatenate your password and security token
-  grantType: 'password'
+  grantType: 'password',
 };
 
 // Set view engine to EJS
@@ -27,13 +27,10 @@ app.get('/', (req, res) => {
   res.render('paymentForm', { stripePublishableKey });
 });
 
-// Handle form submission
 app.post('/submit', async (req, res) => {
 
   const { token, name, email } = req.body;
   
-  console.log(req.body);
-
   try {
     const accessTokenResponse = await request({
       method: 'POST',
@@ -49,10 +46,43 @@ app.post('/submit', async (req, res) => {
     });
 
     console.log('Access Token Response:', accessTokenResponse);
+
+
+    const accessToken = accessTokenResponse.access_token;
+
+    // Query Salesforce for the account
+    const accountQueryResponse = await request({
+      method: 'GET',
+      uri: 'https://unblindedmastery.my.salesforce.com/services/data/v58.0/query',
+      qs: {
+        q: `SELECT Id FROM Account WHERE Email = '${email}'`,
+      },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      json: true
+    });
+
+    console.log('Account Query Response:', accountQueryResponse);
+    const accountId = accountQueryResponse.records[0].Id;
+
+    // Update the Payment_Token__c field
+    const updateFieldResponse = await request({
+      method: 'PATCH',
+      uri: `https://your-instance.salesforce.com/services/data/v52.0/sobjects/Account/${accountId}`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: {
+        Payment_Token__c: token
+      },
+      json: true
+    });
+
+    console.log('Update Field Response:', updateFieldResponse);
     
-    console.log('Associating email with Salesforce account');
   } catch (error) {
-    console.error('Error getting access token from Salesforce:', error);
+    console.error('Error:', error);
     res.status(500).send('Error processing payment.');
     return;
   }
