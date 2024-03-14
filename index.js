@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
-const jsforce = require('jsforce');
+const request = require('request-promise');
 
 // Set your Stripe publishable key
 const stripePublishableKey = 'pk_test_dnxIicCufTTvDdOvJJQmsGIt';
@@ -12,7 +12,8 @@ const salesforceCredentials = {
   clientId: '3MVG9p1Q1BCe9GmBa.vd3k6U6tisbR1DMPjMzaiBN7xn.uqsguNxOYdop1n5P_GB1yHs3gzBQwezqI6q37bh9', // Replace with your Salesforce Consumer Key
   clientSecret: '1AAD66E5E5BF9A0F6FCAA681ED6720A797AC038BC6483379D55C192C1DC93190', // Replace with your Salesforce Consumer Secret
   username: 'admin@unblindedmastery.com', // Your Salesforce username
-  password: 'Unblinded2023$' // Concatenate your password and security token
+  password: 'Unblinded2023$', // Concatenate your password and security token
+  grantType: 'password'
 };
 
 // Set view engine to EJS
@@ -30,17 +31,28 @@ app.get('/', (req, res) => {
 app.post('/submit', async (req, res) => {
 
   const { token, name, email } = req.body;
-  console.log('Token:', token);
+  
+  console.log(req.body);
 
-  // Authenticate with Salesforce
-  const conn = new jsforce.Connection();
   try {
-    await conn.login(salesforceCredentials.username, salesforceCredentials.password);
-    console.log('Connected to Salesforce');
+    const accessTokenResponse = await request({
+      method: 'POST',
+      uri: 'https://login.salesforce.com/services/oauth2/token',
+      form: {
+        grant_type: salesforceCredentials.grantType,
+        client_id: salesforceCredentials.clientId,
+        client_secret: salesforceCredentials.clientSecret,
+        username: salesforceCredentials.username,
+        password: `${salesforceCredentials.password}${salesforceCredentials.securityToken}`
+      },
+      json: true
+    });
 
+    console.log('Access Token Response:', accessTokenResponse);
+    
     console.log('Associating email with Salesforce account');
   } catch (error) {
-    console.error('Error connecting to Salesforce:', error);
+    console.error('Error getting access token from Salesforce:', error);
     res.status(500).send('Error processing payment.');
     return;
   }
