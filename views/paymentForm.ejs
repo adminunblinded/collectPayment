@@ -72,7 +72,7 @@
 
         var formData = new FormData(form);
         formData.append('token', result.token); // Add the token to the form data
-        console.log(formData);
+        console.log(result.token));
 
         // Send the form data to the server using AJAX
         fetch('/submit', {
