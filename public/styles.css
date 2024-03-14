@@ -21,6 +21,10 @@ label {
   display: block;
 }
 
+.responsive-swal {
+  max-width: 90%; 
+}
+
 input[type="text"],
 input[type="email"],
 #card-element {
