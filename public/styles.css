@@ -22,7 +22,7 @@ label {
 }
 
 .responsive-swal {
-  max-width: 90%; 
+  max-width: 50%; 
 }
 
 input[type="text"],
