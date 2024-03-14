@@ -78,11 +78,33 @@
         console.log(result.token);
         // You can then submit the token to your server
         // and process the payment server-side.
-        Swal.fire({
-          icon: 'success',
-          title: 'Card Added Successfully',
-          showConfirmButton: false,
-          timer: 1500
+        var formData = new FormData(form);
+        formData.append('token', result.token.id); // Add the token to the form data
+
+        // Send the form data to the server using AJAX
+        fetch('/submit', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+          console.log(data); // Log the response from the server
+          // Show success modal
+          Swal.fire({
+            icon: 'success',
+            title: 'Card Added Successfully',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          // Handle error
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+          });
         });
       }
     });
