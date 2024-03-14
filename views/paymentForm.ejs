@@ -69,15 +69,17 @@
         var errorElement = document.getElementById('card-errors');
         errorElement.textContent = result.error.message;
       } else {
-
-        var formData = new FormData(form);
-        formData.append('token', result.token); // Add the token to the form data
-        console.log(result.token));
-
         // Send the form data to the server using AJAX
         fetch('/submit', {
           method: 'POST',
-          body: formData
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            token: result.token.id,
+            name: document.getElementById('name-on-card').value,
+            email: document.getElementById('email').value
+          })
         })
         .then(response => response.text())
         .then(data => {
