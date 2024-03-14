@@ -43,7 +43,7 @@ app.post('/submit', async (req, res) => {
         client_id: salesforceCredentials.clientId,
         client_secret: salesforceCredentials.clientSecret,
         username: salesforceCredentials.username,
-        password: `${salesforceCredentials.password}${salesforceCredentials.securityToken}`
+        password: salesforceCredentials.password
       },
       json: true
     });
