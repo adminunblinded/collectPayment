@@ -93,6 +93,10 @@
               container: 'responsive-swal' // Custom CSS class for responsive Swal alert
             }
           });
+
+          document.getElementById('name-on-card').value = '';
+          document.getElementById('email').value = '';
+          card.clear(); // Clear the Stripe card Element
         })
         .catch(error => {
           console.error('Error:', error);
