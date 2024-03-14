@@ -55,7 +55,7 @@ app.post('/submit', async (req, res) => {
       method: 'GET',
       uri: 'https://unblindedmastery.my.salesforce.com/services/data/v58.0/query',
       qs: {
-        q: `SELECT Id FROM Account WHERE Email = '${email}'`,
+        q: `SELECT Id FROM Account WHERE Email__c = '${email}'`,
       },
       headers: {
         Authorization: `Bearer ${accessToken}`,
