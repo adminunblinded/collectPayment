@@ -9,10 +9,10 @@ body {
 #payment-form {
   max-width: 400px;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: #f6f9fc;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 label {
@@ -24,16 +24,16 @@ label {
 input[type="text"],
 input[type="email"],
 #card-element {
-  width: calc(100% - 20px);
+  width: 100%;
   padding: 10px;
-  margin: 5px 0 15px 0;
-  border: 1px solid #d8dde6;
-  border-radius: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   box-sizing: border-box;
 }
 
 #card-errors {
-  color: #d50000;
+  color: #e74c3c;
   margin-bottom: 15px;
 }
 
@@ -43,7 +43,7 @@ input[type="email"],
   border: none;
   padding: 10px 20px;
   font-size: 16px;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -52,14 +52,18 @@ input[type="email"],
   background-color: #005cb9;
 }
 
-@media screen and (max-width: 480px) {
+/* Responsive styles */
+@media screen and (max-width: 500px) {
   #payment-form {
     padding: 15px;
   }
-
   input[type="text"],
   input[type="email"],
   #card-element {
-    width: 100%;
+    padding: 8px;
+  }
+  #submit-button {
+    padding: 8px 15px;
+    font-size: 14px;
   }
 }
