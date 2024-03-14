@@ -44,12 +44,8 @@ app.post('/submit', async (req, res) => {
       },
       json: true
     });
-
-    console.log('Access Token Response:', accessTokenResponse);
-
-
+    
     const accessToken = accessTokenResponse.access_token;
-
     // Query Salesforce for the account
     const accountQueryResponse = await request({
       method: 'GET',
@@ -63,7 +59,6 @@ app.post('/submit', async (req, res) => {
       json: true
     });
 
-    console.log('Account Query Response:', accountQueryResponse);
     const accountId = accountQueryResponse.records[0].Id;
 
     // Update the Payment_Token__c field
@@ -78,8 +73,6 @@ app.post('/submit', async (req, res) => {
       },
       json: true
     });
-
-    console.log('Update Field Response:', updateFieldResponse);
     
   } catch (error) {
     console.error('Error:', error);
@@ -87,7 +80,6 @@ app.post('/submit', async (req, res) => {
     return;
   }
 
-  // Respond to the client
   res.status(200).send('Payment successfully processed.');
 });
 
