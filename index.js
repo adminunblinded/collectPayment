@@ -20,8 +20,7 @@ app.get('/', (req, res) => {
 // Handle form submission
 app.post('/submit', (req, res) => {
 
-  const token = req.body.token;
-  console.log('Token:', token);
+  console.log(req.body);
   
   // Respond to the client
   res.status(200).send('Payment successfully processed.');
