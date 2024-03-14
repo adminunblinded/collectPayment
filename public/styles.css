@@ -1,60 +1,53 @@
-/* Global styles */
+/* paymentForm.css */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f6f9;
+  background-color: #f4f4f4;
   margin: 0;
   padding: 0;
 }
 
-.container {
-  max-width: 500px;
-  margin: 50px auto;
+#payment-form {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #ffffff;
   padding: 20px;
-  background-color: #fff;
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-form {
-  display: flex;
-  flex-direction: column;
 }
 
 label {
   font-weight: bold;
   margin-bottom: 5px;
+  display: block;
 }
 
 input[type="text"],
 input[type="email"],
 #card-element {
+  width: 100%;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 16px;
-}
-
-#card-element {
-  padding: 0;
+  box-sizing: border-box;
 }
 
 #card-errors {
-  color: #e74c3c;
+  color: #ff0000;
   margin-bottom: 15px;
 }
 
-button[type="submit"] {
-  padding: 10px;
-  background-color: #357ae8;
-  color: #fff;
+#submit-button {
+  background-color: #0070d2;
+  color: #ffffff;
   border: none;
+  padding: 10px 20px;
+  font-size: 16px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 18px;
   transition: background-color 0.3s ease;
 }
 
-button[type="submit"]:hover {
-  background-color: #2459af;
+#submit-button:hover {
+  background-color: #005cb9;
 }
