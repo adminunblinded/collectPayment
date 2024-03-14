@@ -7,6 +7,7 @@
   <title>Payment Form</title>
   <script src="https://js.stripe.com/v3/"></script>
   <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -77,6 +78,12 @@
         console.log(result.token);
         // You can then submit the token to your server
         // and process the payment server-side.
+        Swal.fire({
+          icon: 'success',
+          title: 'Card Added Successfully',
+          showConfirmButton: false,
+          timer: 1500
+        });
       }
     });
   });
@@ -84,4 +91,3 @@
 
 </body>
 </html>
-
