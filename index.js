@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const request = require('request-promise');
 
 // Set your Stripe publishable key
-const stripePublishableKey = 'pk_test_dnxIicCufTTvDdOvJJQmsGIt';
+const stripePublishableKey = 'pk_live_NQtPCEsHEgdEyT8wRDyV5iPk';
 
 // Salesforce credentials
 const salesforceCredentials = {
